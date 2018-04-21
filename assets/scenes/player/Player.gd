@@ -4,14 +4,12 @@ const MOVEMENT_SPEED = 250
 const JUMP_SPEED = 300
 const SPRINT_SPEED_MULTIPLIER = 1.4
 
-var body
 var head
 var gravity
 var current_velocity
 
 func _ready():
-	body = $KinematicBody
-	head = $KinematicBody/Head
+	head = $Head
 	gravity = Vector3(0, -18.2, 0)
 	current_velocity = Vector3()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -35,14 +33,14 @@ func _process(delta):
 	
 	current_velocity.x = move.x
 	current_velocity.z = move.z
-	if body.is_on_floor():
+	if is_on_floor():
 		current_velocity.y = 0
 		if Input.is_action_pressed("jump"):
 			current_velocity.y += JUMP_SPEED
 	else:
 		current_velocity += gravity
 	
-	$KinematicBody.move_and_slide(current_velocity * delta, Vector3(0, 1, 0))
+	move_and_slide(current_velocity * delta, Vector3(0, 1, 0))
 	
 	if Input.is_action_just_pressed("toggle_mouse_lock"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -52,9 +50,9 @@ func _process(delta):
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		var body_rot = body.rotation_degrees
+		var body_rot = rotation_degrees
 		body_rot.y -= event.relative.x * 0.1
-		body.rotation_degrees = body_rot
+		rotation_degrees = body_rot
 		
 		var head_rot = head.rotation_degrees
 		head_rot.x = clamp(head_rot.x - event.relative.y * 0.07, -90, 90)

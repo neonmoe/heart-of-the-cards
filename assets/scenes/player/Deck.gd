@@ -16,7 +16,10 @@ func _ready():
 	camera = $Camera
 	deck_mesh = $"Left Hand/Deck"
 	card_hand = $"Right Hand/CardHolder"
-	cards = [ load("res://assets/scenes/Cards/CardFire.tscn") ]
+	cards = [ 
+		load("res://assets/scenes/cards/CardFire.tscn"),
+		load("res://assets/scenes/cards/CardIce.tscn")
+	]
 
 func _process(delta):
 	if Input.is_action_just_pressed("throw_card"):

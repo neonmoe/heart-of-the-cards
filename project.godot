@@ -56,7 +56,6 @@ throw_card=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"resou
 
 [rendering]
 
-quality/filters/anisotropic_filter_level=16
 quality/directional_shadow/size=2048
 quality/shadow_atlas/size=2048
 quality/shadow_atlas/quadrant_1_subdiv=1
