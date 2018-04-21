@@ -43,6 +43,12 @@ func _process(delta):
 		current_velocity += gravity
 	
 	$KinematicBody.move_and_slide(current_velocity * delta, Vector3(0, 1, 0))
+	
+	if Input.is_action_just_pressed("toggle_mouse_lock"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -53,8 +59,3 @@ func _input(event):
 		var head_rot = head.rotation_degrees
 		head_rot.x = clamp(head_rot.x - event.relative.y * 0.07, -90, 90)
 		head.rotation_degrees = head_rot
-	if event is InputEventAction and event.action == "toggle_mouse_lock":
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

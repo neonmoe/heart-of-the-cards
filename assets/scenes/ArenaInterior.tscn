@@ -28,7 +28,7 @@ extents = Vector3( 5, 0.5, 5 )
 
 extents = Vector3( 0.5, 1.75, 5 )
 
-[node name="Room" type="Spatial"]
+[node name="Room" type="Spatial" index="0"]
 
 [node name="GIProbe" type="GIProbe" parent="." index="0"]
 
