@@ -4,7 +4,7 @@ const FIRE_DAMAGE_INTERVAL = 0.5
 const DYING_TIME = 0.15
 const FROZEN_SPEED_MULTIPLIER = 0.3
 
-var max_health = 10
+var max_health = 5
 var health = max_health
 var health_indicator
 var dead_time = -1
@@ -88,3 +88,7 @@ func freeze(secs):
 
 func stun(secs):
 	stun_time = secs
+
+# For identifying targets for homing cards. Thanks, duck typing >.>
+func homing_target():
+	pass

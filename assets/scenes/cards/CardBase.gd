@@ -1,22 +1,21 @@
 extends KinematicBody
 
-const SPEED = 30
+const SPEED = 20
 
 var flying_dir
 
 func _ready():
-	pass
+	$HomingArea.scale = Vector3(2, 2, 2)
 
-func _process(delta):
+func _physics_process(delta):
 	if flying_dir != null:
-		var collision = move_and_collide(flying_dir * delta * SPEED)
-		if collision != null:
-			hit(collision.collider)
+		var collision = move_and_collide(flying_dir.normalized() * delta * SPEED)
+		if collision != null and hit(collision.collider):
 			queue_free()
 
-func throw(target):
-	look_at(target, Vector3(0, 1, 0))
-	flying_dir = (target - translation).normalized()
+func throw(throw_target):
+	look_at(throw_target, Vector3(0, 1, 0))
+	flying_dir = throw_target - translation
 
 func hit(collider):
 	pass

@@ -5,11 +5,16 @@ const JUMP_SPEED = 300
 const SPRINT_SPEED_MULTIPLIER = 1.4
 
 var head
+var deck
+
 var gravity
 var current_velocity
 
+var exit_countdown = 3
+
 func _ready():
 	head = $Head
+	deck = $Head/Deck
 	gravity = Vector3(0, -18.2, 0)
 	current_velocity = Vector3()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -47,6 +52,14 @@ func _process(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	if deck.deck_is_empty():
+		$Control/LoseLabel.visible = true
+		$Control/LoseCountdown.visible = true
+		$Control/LoseCountdown.text = str(ceil(exit_countdown))
+		exit_countdown -= delta
+		if exit_countdown <= 0:
+			get_tree().quit()
 
 func _input(event):
 	if event is InputEventMouseMotion:

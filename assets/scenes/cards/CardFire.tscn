@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [sub_resource type="GDScript" id=4]
 
@@ -8,10 +8,12 @@ const DAMAGE = 2
 const FIRE_STACKS = 3
 
 func hit(enemy):
-	if enemy.has_method(\"take_damage\"):
-		enemy.take_damage(DAMAGE)
 	if enemy.has_method(\"set_on_fire\"):
 		enemy.set_on_fire(FIRE_STACKS)
+	if enemy.has_method(\"take_damage\"):
+		enemy.take_damage(DAMAGE)
+		return true
+	return false
 "
 
 [sub_resource type="CubeMesh" id=1]
@@ -81,6 +83,10 @@ _sections_unfolded = [ "Albedo", "Emission" ]
 
 extents = Vector3( 0.1, 0.15, 0.015 )
 
+[sub_resource type="SphereShape" id=5]
+
+radius = 1.0
+
 [node name="CardFire" type="KinematicBody"]
 
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.0851803, 0 )
@@ -121,5 +127,39 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, -
 shape = SubResource( 3 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
+
+[node name="HomingArea" type="Area" parent="." index="2"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
+input_ray_pickable = false
+input_capture_on_drag = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision_layer = 1
+collision_mask = 1
+audio_bus_override = false
+audio_bus_name = "Master"
+reverb_bus_enable = false
+reverb_bus_name = "Master"
+reverb_bus_amount = 0.0
+reverb_bus_uniformity = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape" type="CollisionShape" parent="HomingArea" index="0"]
+
+shape = SubResource( 5 )
+disabled = false
+
+[connection signal="body_entered" from="HomingArea" to="." method="_on_HomingArea_body_entered"]
+
+[connection signal="body_exited" from="HomingArea" to="." method="_on_HomingArea_body_exited"]
 
 

@@ -3,22 +3,21 @@
 [ext_resource path="res://assets/scenes/player/Deck.gd" type="Script" id=1]
 [ext_resource path="res://assets/material/hand.tres" type="Material" id=2]
 
-
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="CubeMesh" id=1]
 
 size = Vector3( 0.2, 0.2, 0.2 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=2]
 
 size = Vector3( 0.2, 0.1, 0.3 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[node name="Deck" type="Spatial" index="0"]
+[node name="Deck" type="Spatial"]
 
 script = ExtResource( 1 )
 
@@ -51,14 +50,15 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
 
 [node name="CardHolder" type="Spatial" parent="Right Hand" index="0"]
 
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.131307, -2.98023e-08 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.131307, -2.98023e-08 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Left Hand" type="MeshInstance" parent="." index="2"]
 
@@ -72,7 +72,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
@@ -94,7 +94,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]

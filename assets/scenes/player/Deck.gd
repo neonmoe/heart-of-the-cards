@@ -1,6 +1,6 @@
 extends Spatial
 
-const DECK_MAX = 40
+const DECK_MAX = 20
 
 var camera
 var deck_cards = DECK_MAX
@@ -30,6 +30,8 @@ func throw_card():
 	if card_drawn:
 		var target = raycast()
 		current_card.throw(target)
+		$"/root/Arena/".add_child(current_card)
+		remove_child(current_card)
 		card_drawn = false
 	if deck_cards > 0:
 		draw_card()
@@ -43,12 +45,17 @@ func draw_card():
 func new_card():
 	var new_card = cards[randi() % len(cards)].instance()
 	card_hand.add_child(new_card)
-	new_card.global_transform = card_hand.global_transform
+	var pos = card_hand.translation
+	var rot = card_hand.translation
+	rot.x -= 90
+	pos.y += 0.2
+	new_card.rotation_degrees = rot
+	new_card.translation = pos
 	return new_card
 
 func raycast():
 	var from = camera.project_ray_origin(get_viewport().size / 2)
-	return from + camera.project_ray_normal(get_viewport().size / 2) * 20
+	return from + camera.project_ray_normal(get_viewport().size / 2) * 50
 
 func update_mesh():
 	if deck_cards > 0:
@@ -57,3 +64,6 @@ func update_mesh():
 		deck_mesh.scale = scale
 	else:
 		deck_mesh.visible = false
+
+func deck_is_empty():
+	return deck_cards == 0 and not card_drawn

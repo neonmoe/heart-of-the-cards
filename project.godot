@@ -20,11 +20,14 @@ config/icon="res://assets/external/icon.png"
 
 window/size/width=1280
 window/size/height=720
-window/vsync/use_vsync=false
 
 [editor_plugins]
 
 enabled=PoolStringArray( "MagicaVoxelImporter" )
+
+[global]
+
+Use Vsync=false
 
 [input]
 
@@ -64,3 +67,4 @@ quality/shadow_atlas/quadrant_3_subdiv=3
 quality/subsurface_scattering/quality=0
 quality/filters/msaa=1
 environment/default_environment="res://assets/environment/main_env.tres"
+quality/dynamic_fonts/use_oversampling=true
