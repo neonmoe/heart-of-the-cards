@@ -10,9 +10,26 @@ config_version=3
 
 [application]
 
-config/name="heart-of-the-cards"
-config/icon="res://icon.png"
+config/name="Heart of the Cards"
+run/main_scene="res://assets/scenes/Arena.tscn"
+config/use_custom_user_dir=true
+run/low_processor_mode_sleep_usec=12000
+config/icon="res://assets/external/icon.png"
+
+[display]
+
+window/size/width=960
+window/size/height=540
 
 [editor_plugins]
 
 enabled=PoolStringArray( "MagicaVoxelImporter" )
+
+[physics]
+
+3d/default_gravity=19.6
+
+[rendering]
+
+quality/filters/msaa=1
+environment/default_environment="res://assets/environment/main_env.tres"
