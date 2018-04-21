@@ -1,14 +1,21 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/scenes/enemies/BaseEnemy.gd" type="Script" id=1]
-[ext_resource path="res://assets/scenes/enemies/EnemyBody.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/scenes/enemies/EnemyBody.tscn" type="PackedScene" id=1]
 
-[sub_resource type="CapsuleMesh" id=2]
+[sub_resource type="GDScript" id=1]
 
-radius = 0.2
-mid_height = 0.5
-radial_segments = 64
-rings = 8
+script/source = "extends \"res://assets/scenes/enemies/BaseEnemy.gd\"
+
+func process_ai():
+	move_direction = Vector3(cos(OS.get_ticks_msec() / 100.0), 0, sin(OS.get_ticks_msec() / 100.0))
+"
+
+[sub_resource type="CubeMesh" id=2]
+
+size = Vector3( 0.6, 0.6, 0.6 )
+subdivide_width = 0
+subdivide_height = 0
+subdivide_depth = 0
 
 [sub_resource type="SpatialMaterial" id=3]
 
@@ -33,7 +40,7 @@ params_point_size = 1.0
 params_billboard_mode = 0
 params_grow = false
 params_use_alpha_scissor = false
-albedo_color = Color( 0.400452, 0.949219, 0.640537, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 metallic = 0.0
 metallic_specular = 0.5
 metallic_texture_channel = 0
@@ -62,13 +69,13 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="BaseEnemy" type="Spatial"]
+[node name="DemonEnemy" type="Spatial" index="0"]
 
-script = ExtResource( 1 )
+script = SubResource( 1 )
 
 [node name="Mesh" type="MeshInstance" parent="." index="0"]
 
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.45, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.312778, 0 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -83,6 +90,6 @@ skeleton = NodePath("..")
 material/0 = SubResource( 3 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="Body" parent="." index="1" instance=ExtResource( 2 )]
+[node name="Body" parent="." index="1" instance=ExtResource( 1 )]
 
 

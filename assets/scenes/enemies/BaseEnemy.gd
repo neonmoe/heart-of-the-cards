@@ -1,10 +1,10 @@
-extends KinematicBody
+extends Spatial
 
 const FIRE_DAMAGE_INTERVAL = 0.5
 const DYING_TIME = 0.15
 const FROZEN_SPEED_MULTIPLIER = 0.3
 
-var max_health = 5
+var max_health = 4
 var health = max_health
 var health_indicator
 var dead_time = -1
@@ -22,11 +22,17 @@ var stun_indicator
 var move_direction = Vector3()
 var move_speed = 200
 
+var body
+
 func _ready():
-	health_indicator = $HealthIndicator
-	on_fire_indicator = $OnFireIndicator
-	frozen_indicator = $FrozenIndicator
-	stun_indicator = $StunIndicator
+	body = $Body
+	var mesh = $Mesh
+	remove_child(mesh)
+	body.add_child(mesh)
+	health_indicator = $Body/HealthIndicator
+	on_fire_indicator = $Body/OnFireIndicator
+	frozen_indicator = $Body/FrozenIndicator
+	stun_indicator = $Body/StunIndicator
 
 func _process(delta):
 	if on_fire > 0 and fire_cooldown <= 0:
@@ -61,7 +67,7 @@ func _process(delta):
 			queue_free()
 		else:
 			var remaining_time = (dead_time - OS.get_ticks_msec()) / DYING_TIME / 1000
-			scale = Vector3(1, 1, 1) * pow(remaining_time, 0.5)
+			body.scale = Vector3(1, 1, 1) * pow(remaining_time, 0.5)
 	
 	process_ai()
 
@@ -71,7 +77,7 @@ func _physics_process(delta):
 		actual_move_speed *= FROZEN_SPEED_MULTIPLIER
 	if stun_time > 0:
 		actual_move_speed *= 0
-	move_and_slide(move_direction.normalized() * actual_move_speed, Vector3(0, 1, 0))
+	body.move_and_slide(move_direction.normalized() * actual_move_speed, Vector3(0, 1, 0))
 
 func process_ai():
 	move_direction = Vector3(cos(OS.get_ticks_msec() / 500.0), 0, sin(OS.get_ticks_msec() / 500.0))

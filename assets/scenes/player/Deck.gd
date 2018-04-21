@@ -38,8 +38,10 @@ func throw_card():
 	if card_drawn:
 		var target = raycast()
 		current_card.throw(target)
+		var previous_transform = current_card.global_transform
+		card_hand.remove_child(current_card)
 		$"/root/Arena/".add_child(current_card)
-		remove_child(current_card)
+		current_card.global_transform = previous_transform
 		card_drawn = false
 	request_card()
 

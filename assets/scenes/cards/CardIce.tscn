@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/scenes/cards/CardBody.tscn" type="PackedScene" id=1]
 
 [sub_resource type="GDScript" id=4]
 
@@ -16,14 +18,14 @@ func hit(enemy):
 	return false
 "
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CubeMesh" id=5]
 
 size = Vector3( 0.2, 0.3, 0.03 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=6]
 
 render_priority = 0
 flags_transparent = false
@@ -79,28 +81,9 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Emission" ]
 
-[sub_resource type="BoxShape" id=3]
-
-extents = Vector3( 0.1, 0.15, 0.015 )
-
-[sub_resource type="SphereShape" id=6]
-
-radius = 1.0
-
-[node name="CardIce" type="KinematicBody"]
+[node name="CardIce" type="Spatial"]
 
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.0851803, 0 )
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
-collision/safe_margin = 0.001
 script = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
@@ -116,50 +99,11 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 1 )
+mesh = SubResource( 5 )
 skeleton = NodePath("..")
-material/0 = SubResource( 5 )
+material/0 = SubResource( 6 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
-
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, -0.15 )
-shape = SubResource( 3 )
-disabled = false
-_sections_unfolded = [ "Transform" ]
-
-[node name="HomingArea" type="Area" parent="." index="2"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-input_ray_pickable = false
-input_capture_on_drag = false
-space_override = 0
-gravity_point = false
-gravity_distance_scale = 0.0
-gravity_vec = Vector3( 0, -1, 0 )
-gravity = 9.8
-linear_damp = 0.1
-angular_damp = 1.0
-priority = 0.0
-monitoring = true
-monitorable = true
-collision_layer = 1
-collision_mask = 1
-audio_bus_override = false
-audio_bus_name = "Master"
-reverb_bus_enable = false
-reverb_bus_name = "Master"
-reverb_bus_amount = 0.0
-reverb_bus_uniformity = 0.0
-_sections_unfolded = [ "Transform" ]
-
-[node name="CollisionShape" type="CollisionShape" parent="HomingArea" index="0"]
-
-shape = SubResource( 6 )
-disabled = false
-
-[connection signal="body_entered" from="HomingArea" to="." method="_on_HomingArea_body_entered"]
-
-[connection signal="body_exited" from="HomingArea" to="." method="_on_HomingArea_body_exited"]
+[node name="CardBody" parent="." index="1" instance=ExtResource( 1 )]
 
 
