@@ -1,7 +1,8 @@
 extends Spatial
 
 const MOVEMENT_SPEED = 250
-const JUMP_SPEED = 10
+const JUMP_SPEED = 300
+const SPRINT_SPEED_MULTIPLIER = 1.4
 
 var body
 var head
@@ -29,17 +30,19 @@ func _process(delta):
 		move += -cam_direction.x.normalized()
 	move.y = 0
 	move = move.normalized() * MOVEMENT_SPEED
+	if Input.is_action_pressed("sprint"):
+		move *= SPRINT_SPEED_MULTIPLIER
 	
 	current_velocity.x = move.x
 	current_velocity.z = move.z
-	if Input.is_action_just_pressed("jump"):
-		current_velocity.y += JUMP_SPEED
-	elif body.is_on_floor():
+	if body.is_on_floor():
 		current_velocity.y = 0
+		if Input.is_action_pressed("jump"):
+			current_velocity.y += JUMP_SPEED
 	else:
 		current_velocity += gravity
 	
-	$KinematicBody.move_and_slide(current_velocity * delta)
+	$KinematicBody.move_and_slide(current_velocity * delta, Vector3(0, 1, 0))
 
 func _input(event):
 	if event is InputEventMouseMotion:
