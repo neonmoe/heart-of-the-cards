@@ -16,6 +16,9 @@ var on_fire_indicator
 var frozen_time = 0
 var frozen_indicator
 
+var stun_time = 0
+var stun_indicator
+
 var move_direction = Vector3()
 var move_speed = 200
 
@@ -23,6 +26,7 @@ func _ready():
 	health_indicator = $HealthIndicator
 	on_fire_indicator = $OnFireIndicator
 	frozen_indicator = $FrozenIndicator
+	stun_indicator = $StunIndicator
 
 func _process(delta):
 	if on_fire > 0 and fire_cooldown <= 0:
@@ -35,14 +39,19 @@ func _process(delta):
 	if frozen_time > 0:
 		frozen_time -= delta
 	
+	if stun_time > 0:
+		stun_time -= delta
+	
 	# Indicators
 	if dead_time == -1:
 		health_indicator.scale = Vector3(1, float(health)  / max_health, 1)
 		frozen_indicator.visible = frozen_time > 0
 		on_fire_indicator.visible = on_fire > 0
+		stun_indicator.visible = stun_time > 0
 	else:
 		health_indicator.visible = false
 		frozen_indicator.visible = false
+		stun_indicator.visible = false
 		on_fire_indicator.visible = false
 	
 	if health <= 0 and dead_time == -1:
@@ -60,6 +69,8 @@ func _physics_process(delta):
 	var actual_move_speed = move_speed * delta
 	if frozen_time > 0:
 		actual_move_speed *= FROZEN_SPEED_MULTIPLIER
+	if stun_time > 0:
+		actual_move_speed *= 0
 	move_and_slide(move_direction.normalized() * actual_move_speed, Vector3(0, 1, 0))
 
 func process_ai():
@@ -74,3 +85,6 @@ func take_damage(dmg):
 
 func freeze(secs):
 	frozen_time = secs
+
+func stun(secs):
+	stun_time = secs

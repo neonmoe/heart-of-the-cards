@@ -48,7 +48,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Head" type="Spatial" parent="." index="1"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.984362, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Deck" parent="Head" index="0" instance=ExtResource( 2 )]
@@ -75,7 +75,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="MeshInstance2" type="MeshInstance" parent="DebugMeshes" index="1"]
 
-transform = Transform( 1, -1.74846e-07, -3.01876e-11, -3.01876e-11, -0.000345306, 1, -1.74846e-07, -1, -0.000345306, 0, 1.2, -0.363549 )
+transform = Transform( 1, -1.74846e-07, -3.01876e-11, -3.01876e-11, -0.000345306, 1, -1.74846e-07, -1, -0.000345306, 0, 0.984362, -0.363549 )
 layers = 1
 material_override = null
 cast_shadow = 1

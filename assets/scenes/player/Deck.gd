@@ -18,7 +18,8 @@ func _ready():
 	card_hand = $"Right Hand/CardHolder"
 	cards = [ 
 		load("res://assets/scenes/cards/CardFire.tscn"),
-		load("res://assets/scenes/cards/CardIce.tscn")
+		load("res://assets/scenes/cards/CardIce.tscn"),
+		load("res://assets/scenes/cards/CardShock.tscn")
 	]
 
 func _process(delta):
