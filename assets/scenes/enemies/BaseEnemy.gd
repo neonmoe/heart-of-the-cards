@@ -92,3 +92,9 @@ func stun(secs):
 # For identifying targets for homing cards. Thanks, duck typing >.>
 func homing_target():
 	pass
+
+func _on_Area_body_entered(body):
+	print("Bonk?")
+	if body.has_method("player_take_damage"):
+		body.player_take_damage()
+		print("Bonk!")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/scenes/enemies/BaseEnemy.gd" type="Script" id=1]
 
@@ -237,7 +237,12 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[node name="BaseEnemy" type="KinematicBody"]
+[sub_resource type="CapsuleShape" id=10]
+
+radius = 0.553572
+height = 0.002
+
+[node name="BaseEnemy" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -350,5 +355,36 @@ mesh = SubResource( 7 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "material" ]
+
+[node name="Area" type="Area" parent="." index="6"]
+
+input_ray_pickable = false
+input_capture_on_drag = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision_layer = 1
+collision_mask = 1
+audio_bus_override = false
+audio_bus_name = "Master"
+reverb_bus_enable = false
+reverb_bus_name = "Master"
+reverb_bus_amount = 0.0
+reverb_bus_uniformity = 0.0
+
+[node name="CollisionShape" type="CollisionShape" parent="Area" index="0"]
+
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.533478, 0 )
+shape = SubResource( 10 )
+disabled = false
+
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 
 

@@ -70,3 +70,6 @@ func _input(event):
 		var head_rot = head.rotation_degrees
 		head_rot.x = clamp(head_rot.x - event.relative.y * 0.07, -90, 90)
 		head.rotation_degrees = head_rot
+
+func player_take_damage():
+	deck.drop_card()

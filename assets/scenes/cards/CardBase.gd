@@ -19,3 +19,9 @@ func throw(throw_target):
 
 func hit(collider):
 	pass
+
+func _on_HomingArea_body_entered(body):
+	pass
+	
+func _on_HomingArea_body_exited(body):
+	pass

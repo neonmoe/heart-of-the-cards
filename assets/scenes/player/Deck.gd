@@ -1,6 +1,7 @@
 extends Spatial
 
 const DECK_MAX = 20
+const CARD_DRAW_TIME = 0.2
 
 var camera
 var deck_cards = DECK_MAX
@@ -10,6 +11,8 @@ var deck_mesh
 var card_hand
 var current_card
 var card_drawn = false
+var drawing_card_time = 0
+var card_draw_requested = false
 var cards
 
 func _ready():
@@ -25,6 +28,11 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("throw_card"):
 		throw_card()
+	if drawing_card_time > 0:
+		drawing_card_time -= delta
+	elif card_draw_requested and deck_cards > 0 and not card_drawn:
+		draw_card()
+		card_draw_requested = false
 
 func throw_card():
 	if card_drawn:
@@ -33,14 +41,19 @@ func throw_card():
 		$"/root/Arena/".add_child(current_card)
 		remove_child(current_card)
 		card_drawn = false
-	if deck_cards > 0:
-		draw_card()
-		update_mesh()
+	request_card()
+
+func request_card():
+	if not card_draw_requested:
+		drawing_card_time = CARD_DRAW_TIME
+		card_draw_requested = true
 
 func draw_card():
-	card_drawn = true
-	deck_cards -= 1
-	current_card = new_card()
+	if deck_cards > 0:
+		card_drawn = true
+		deck_cards -= 1
+		current_card = new_card()
+		update_mesh()
 
 func new_card():
 	var new_card = cards[randi() % len(cards)].instance()
@@ -67,3 +80,10 @@ func update_mesh():
 
 func deck_is_empty():
 	return deck_cards == 0 and not card_drawn
+
+func drop_card():
+	if current_card != null:
+		current_card.queue_free()
+		remove_child(current_card)
+		current_card = null
+		card_drawn = false
