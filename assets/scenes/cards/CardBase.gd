@@ -1,7 +1,6 @@
 extends Spatial
 
-const SPEED = 20
-
+var speed = 15
 var flying_dir
 
 var body
@@ -15,7 +14,7 @@ func _ready():
 
 func _physics_process(delta):
 	if flying_dir != null:
-		var collision = body.move_and_collide(flying_dir.normalized() * delta * SPEED)
+		var collision = body.move_and_collide(flying_dir.normalized() * delta * speed)
 		if collision != null and (hit(collision.collider) or hit(collision.collider.get_parent())):
 			queue_free()
 

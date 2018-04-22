@@ -78,7 +78,7 @@ func _process(delta):
 			body.scale = Vector3(1, 1, 1) * pow(remaining_time, 0.5)
 
 func _physics_process(delta):
-	process_ai()
+	process_ai(delta)
 	var actual_move_speed = move_speed * delta
 	if frozen_time > 0:
 		actual_move_speed *= FROZEN_SPEED_MULTIPLIER
@@ -86,7 +86,7 @@ func _physics_process(delta):
 		actual_move_speed *= 0
 	body.move_and_slide(move_direction.normalized() * actual_move_speed, Vector3(0, 1, 0))
 
-func process_ai():
+func process_ai(delta):
 	move_direction = Vector3(cos(OS.get_ticks_msec() / 200.0), 0, sin(OS.get_ticks_msec() / 200.0))
 
 func set_on_fire(stacks):

@@ -9,11 +9,16 @@ extends \"res://assets/scenes/enemies/BaseEnemy.gd\"
 
 const GOLDILOCKS_MIN = 3
 const GOLDILOCKS_MAX = 4
+const SHOOTING_INTERVAL = 2
+
+var shoot_cooldown = 0
+var fireball
 
 func _ready():
-	init(5, 80)
+	init(5, 160)
+	fireball = load(\"res://assets/scenes/cards/Fireball.tscn\")
 
-func process_ai():
+func process_ai(delta):
 	var player_dir = towards_player()
 	var dist = player_dir.length()
 	player_dir = player_dir.normalized()
@@ -22,10 +27,20 @@ func process_ai():
 	var target_dir = sign(dist - target_dist) * player_dir
 	var dist_dist = min(abs(target_dist - dist) * 0.5, 1)
 	move_direction = circling_dir * (1.0 - dist_dist) + target_dir * dist_dist
-	# TODO: Implement the following AI
-	# - Tries to stay in the midway point between the player and the wall
-	# - Starts circling clockwise once the midpoint has been sufficiently reached
-	# - Shoots fire balls
+	if shoot_cooldown <= 0:
+		shoot(player_dir)
+		shoot_cooldown = SHOOTING_INTERVAL
+	else:
+		shoot_cooldown -= delta
+
+func shoot(dir):
+	var fireball_instance = fireball.instance()
+	$\"/root/Arena\".add_child(fireball_instance)
+	var pos = body.global_transform.origin
+	pos.y += 0.5
+	pos += dir * 1.5
+	fireball_instance.global_transform.origin = pos
+	fireball_instance.throw(dir)
 "
 
 [sub_resource type="CubeMesh" id=2]

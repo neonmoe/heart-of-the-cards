@@ -10,7 +10,7 @@ extends \"res://assets/scenes/enemies/BaseEnemy.gd\"
 func _ready():
 	init(3, 140)
 
-func process_ai():
+func process_ai(delta):
 	var player_dir = towards_player()
 	var dist = player_dir.length()
 	player_dir = player_dir.normalized()
