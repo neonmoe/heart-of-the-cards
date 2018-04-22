@@ -14,9 +14,12 @@ const SHOOTING_INTERVAL = 2
 var shoot_cooldown = 0
 var fireball
 
+var sfx_growl
+
 func _ready():
 	init(5, 160)
 	fireball = load(\"res://assets/scenes/cards/Fireball.tscn\")
+	sfx_growl = $Body/SfxGrowl
 
 func process_ai(delta):
 	var player_dir = towards_player()
@@ -28,6 +31,7 @@ func process_ai(delta):
 	var dist_dist = min(abs(target_dist - dist) * 0.5, 1)
 	move_direction = circling_dir * (1.0 - dist_dist) + target_dir * dist_dist
 	if shoot_cooldown <= 0:
+		sfx_growl.play()
 		shoot(player_dir)
 		shoot_cooldown = SHOOTING_INTERVAL
 	else:
@@ -36,6 +40,7 @@ func process_ai(delta):
 func shoot(dir):
 	var fireball_instance = fireball.instance()
 	$\"/root/Arena\".add_child(fireball_instance)
+	fireball_instance.is_card = false
 	var pos = body.global_transform.origin
 	pos.y += 0.5
 	pos += dir * 1.5
@@ -102,7 +107,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="DemonEnemy" type="Spatial"]
+[node name="DemonEnemy" type="Spatial" index="0"]
 
 script = SubResource( 1 )
 

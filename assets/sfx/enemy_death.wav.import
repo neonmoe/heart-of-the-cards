@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/enemy_death.wav-4346a2206aad85dcb5a1e0bca0bff668.sample"
+
+[deps]
+
+source_file="res://assets/sfx/enemy_death.wav"
+source_md5="21b5b3331c43409271a6e13b24435238"
+
+dest_files=[ "res://.import/enemy_death.wav-4346a2206aad85dcb5a1e0bca0bff668.sample" ]
+dest_md5="0d8f206f23abcda3f7ad2e6838566a5a"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -1,29 +1,31 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/scenes/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/scenes/player/Deck.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/scenes/DebugMesh.gd" type="Script" id=3]
 [ext_resource path="res://assets/font/Eligible-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/sfx/footstep.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/jump.wav" type="AudioStream" id=6]
 
 [sub_resource type="CapsuleShape" id=1]
 
 radius = 0.3
 height = 1.0
 
-[sub_resource type="CapsuleMesh" id=2]
-
-radius = 0.3
-mid_height = 1.0
-radial_segments = 64
-rings = 8
-
-[sub_resource type="PrismMesh" id=3]
+[sub_resource type="PrismMesh" id=2]
 
 left_to_right = 0.5
 size = Vector3( 0.3, 0.3, 0.2 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
+
+[sub_resource type="CapsuleMesh" id=3]
+
+radius = 0.3
+mid_height = 1.0
+radial_segments = 64
+rings = 8
 
 [sub_resource type="DynamicFont" id=4]
 
@@ -32,6 +34,20 @@ use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 4 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="AudioStreamRandomPitch" id=5]
+
+audio_stream = ExtResource( 5 )
+random_pitch = 1.1
+
+[sub_resource type="AudioStreamRandomPitch" id=6]
+
+audio_stream = ExtResource( 6 )
+random_pitch = 1.1
+
+[sub_resource type="SphereShape" id=7]
+
+radius = 1.5
 
 [node name="Player" type="KinematicBody"]
 
@@ -57,10 +73,28 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Head" type="Spatial" parent="." index="1"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.984362, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.252, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Deck" parent="Head" index="0" instance=ExtResource( 2 )]
+
+[node name="MeshInstance2" type="MeshInstance" parent="Head" index="1"]
+
+transform = Transform( 1, -1.74846e-07, -3.01876e-11, -3.01876e-11, -0.000345306, 1, -1.74846e-07, -1, -0.000345306, 0, 0, -0.363549 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 2 )
+skeleton = NodePath("..")
+material/0 = null
+script = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="DebugMeshes" type="Spatial" parent="." index="2"]
 
@@ -76,29 +110,11 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 2 )
-skeleton = NodePath("..")
-material/0 = null
-script = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility" ]
-
-[node name="MeshInstance2" type="MeshInstance" parent="DebugMeshes" index="1"]
-
-transform = Transform( 1, -1.74846e-07, -3.01876e-11, -3.01876e-11, -0.000345306, 1, -1.74846e-07, -1, -0.000345306, 0, 0.984362, -0.363549 )
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
 mesh = SubResource( 3 )
 skeleton = NodePath("..")
 material/0 = null
 script = ExtResource( 3 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Control" type="Control" parent="." index="3"]
 
@@ -164,5 +180,73 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Rect", "custom_fonts" ]
+
+[node name="SfxFootsteps" type="AudioStreamPlayer3D" parent="." index="4"]
+
+stream = SubResource( 5 )
+attenuation_model = 0
+unit_db = -20.0
+unit_size = 1.0
+max_db = 3.0
+autoplay = false
+max_distance = 0.0
+out_of_range_mode = 0
+bus = "Master"
+area_mask = 1
+emission_angle_enabled = false
+emission_angle_degrees = 45.0
+emission_angle_filter_attenuation_db = -12.0
+attenuation_filter_cutoff_hz = 5000.0
+attenuation_filter_db = -24.0
+doppler_tracking = 0
+
+[node name="SfxJump" type="AudioStreamPlayer3D" parent="." index="5"]
+
+stream = SubResource( 6 )
+attenuation_model = 0
+unit_db = -20.0
+unit_size = 1.0
+max_db = 3.0
+autoplay = false
+max_distance = 0.0
+out_of_range_mode = 0
+bus = "Master"
+area_mask = 1
+emission_angle_enabled = false
+emission_angle_degrees = 45.0
+emission_angle_filter_attenuation_db = -12.0
+attenuation_filter_cutoff_hz = 5000.0
+attenuation_filter_db = -24.0
+doppler_tracking = 0
+
+[node name="CardPickupArea" type="Area" parent="." index="6"]
+
+input_ray_pickable = false
+input_capture_on_drag = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision_layer = 1
+collision_mask = 1
+audio_bus_override = false
+audio_bus_name = "Master"
+reverb_bus_enable = false
+reverb_bus_name = "Master"
+reverb_bus_amount = 0.0
+reverb_bus_uniformity = 0.0
+
+[node name="CollisionShape" type="CollisionShape" parent="CardPickupArea" index="0"]
+
+shape = SubResource( 7 )
+disabled = false
+
+[connection signal="body_entered" from="CardPickupArea" to="." method="_on_CardPickupArea_body_entered"]
 
 

@@ -8,10 +8,8 @@
 script/source = "# IMP ENEMY #
 extends \"res://assets/scenes/enemies/BaseEnemy.gd\"
 
-export var speed = 140
-
 func _ready():
-	init(9, speed)
+	init(9, 250)
 
 func process_ai(delta):
 	var player_dir = towards_player()
@@ -30,7 +28,6 @@ func process_ai(delta):
 [node name="GreaterImpEnemy" type="Spatial"]
 
 script = SubResource( 1 )
-speed = 90
 
 [node name="Body" parent="." index="0" instance=ExtResource( 1 )]
 

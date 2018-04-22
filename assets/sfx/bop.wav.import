@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bop.wav-dcfae40a32a67df879a48d4563af80bc.sample"
+
+[deps]
+
+source_file="res://assets/sfx/bop.wav"
+source_md5="2825db6d6a9902694a816df6ad4226ae"
+
+dest_files=[ "res://.import/bop.wav-dcfae40a32a67df879a48d4563af80bc.sample" ]
+dest_md5="108861b8cb80fa5bc91e1c15119c0f64"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

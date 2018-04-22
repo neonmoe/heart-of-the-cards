@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/munch.wav-2c1a4729ee609b8294571e4631cf5480.sample"
+
+[deps]
+
+source_file="res://assets/sfx/munch.wav"
+source_md5="73bbee7c3c26400129461abb289461fc"
+
+dest_files=[ "res://.import/munch.wav-2c1a4729ee609b8294571e4631cf5480.sample" ]
+dest_md5="453804900ea2a278ea80cdcbdb9a30cf"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

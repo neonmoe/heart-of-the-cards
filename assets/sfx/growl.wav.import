@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/growl.wav-662eb54e111631834f743da68b83f52b.sample"
+
+[deps]
+
+source_file="res://assets/sfx/growl.wav"
+source_md5="087d6da39c97210e2018199d5ba4302b"
+
+dest_files=[ "res://.import/growl.wav-662eb54e111631834f743da68b83f52b.sample" ]
+dest_md5="ef8ca39b892abc2de3e18d12f9670e05"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

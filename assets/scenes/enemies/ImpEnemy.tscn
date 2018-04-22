@@ -9,7 +9,7 @@ script/source = "# IMP ENEMY #
 extends \"res://assets/scenes/enemies/BaseEnemy.gd\"
 
 func _ready():
-	init(4, 140)
+	init(4, 270)
 
 func process_ai(delta):
 	var player_dir = towards_player()

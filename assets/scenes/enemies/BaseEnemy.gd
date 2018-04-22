@@ -23,8 +23,13 @@ var move_speed = 100
 var body
 var player
 var mesh
+var sfx_death
+var sfx_munch
+var sfx_footstep
+var last_footstep_side = -1
 var offset_pos = Vector3()
 var offset_rot = Vector3()
+var offset_time = randi() % 100
 
 # Something like an alternative super constructor for all enemies
 func init(health_, move_speed_):
@@ -43,6 +48,9 @@ func _ready():
 	on_fire_indicator = $Body/OnFireIndicator
 	frozen_indicator = $Body/FrozenIndicator
 	stun_indicator = $Body/StunIndicator
+	sfx_footstep = $Body/SfxFootstep
+	sfx_death = $Body/SfxDeath
+	sfx_munch = $Body/SfxMunch
 
 func _process(delta):
 	if on_fire > 0 and fire_cooldown <= 0:
@@ -66,13 +74,21 @@ func _process(delta):
 	
 	if health <= 0:
 		body.explode()
+		sfx_death.play()
+		var prev_transform = sfx_death.global_transform
+		body.remove_child(sfx_death)
+		$"/root/Arena".add_child(sfx_death)
+		sfx_death.global_transform = prev_transform
 		queue_free()
 	
 	# Animation
-	var osc = sin(OS.get_ticks_msec() / 100.0 * move_speed / 200)
+	var osc = sin((offset_time + OS.get_ticks_msec()) / 100.0 * move_speed / 200)
 	if not stunned():
-		offset_pos.y = min(1, abs(osc) * 1.5) * 0.3
+		offset_pos.y = 0.45 - min(1, abs(osc) * 3.0) * 0.3
 		offset_rot.z = sign(osc) * min(1, abs(osc * 1.5)) * 20
+		if last_footstep_side != sign(osc) and abs(osc) >= 0.9:
+			sfx_footstep.play()
+			last_footstep_side = sign(osc)
 	else:
 		offset_pos.y = 0
 		offset_rot.z = 0
@@ -82,7 +98,7 @@ func _process(delta):
 
 func _physics_process(delta):
 	process_ai(delta)
-	var actual_move_speed = move_speed * delta
+	var actual_move_speed = move_speed * delta * pow(offset_pos.y * 3.5, 2)
 	if frozen_time > 0:
 		actual_move_speed *= FROZEN_SPEED_MULTIPLIER
 	if stun_time > 0:
@@ -125,6 +141,7 @@ func homing_target():
 func _on_Area_body_entered(body):
 	if body.has_method("player_take_damage"):
 		body.player_take_damage()
+		sfx_munch.play()
 
 # AI helpers
 func towards_player():

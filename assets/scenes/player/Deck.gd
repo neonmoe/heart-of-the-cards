@@ -4,8 +4,9 @@ const DECK_MAX = 20
 const CARD_DRAW_TIME = 0.2
 
 var camera
-var deck_cards = DECK_MAX
 var deck_mesh
+var sfx_draw
+var sfx_throw
 
 # Cards
 var card_hand
@@ -14,6 +15,9 @@ var card_drawn = false
 var drawing_card_time = 0
 var card_draw_requested = false
 var cards
+var hand = []
+var moving_card_start_position
+var moving_card_end_position
 
 # Targeting systems
 var targeted_enemies = []
@@ -22,18 +26,45 @@ func _ready():
 	camera = $Camera
 	deck_mesh = $"Left Hand/Deck"
 	card_hand = $"Right Hand/CardHolder"
+	sfx_draw = $SfxDraw
+	sfx_throw = $SfxThrow
 	cards = [ 
 		load("res://assets/scenes/cards/CardFire.tscn"),
 		load("res://assets/scenes/cards/CardIce.tscn"),
 		load("res://assets/scenes/cards/CardShock.tscn"),
 	]
+	for i in range(DECK_MAX):
+		var new_card = cards[randi() % len(cards)].instance()
+		add_card(new_card)
+
+func add_card(card):
+	card.picked_up = true
+	if card.get_parent():
+		card.get_parent().remove_child(card)
+	card_hand.add_child(card)
+	card.global_transform = card_hand.global_transform
+	var rot = card.rotation_degrees
+	var pos = card.translation
+	rot.x = 90
+	rot.y = 60
+	pos.x = len(hand) * 0.01 - 1.5
+	pos.z = len(hand) * 0.005 + 0.9
+	card.rotation_degrees = rot
+	card.translation = pos
+	hand.push_front(card)
 
 func _process(delta):
 	if Input.is_action_just_pressed("throw_card"):
 		throw_card()
 	if drawing_card_time > 0:
 		drawing_card_time -= delta
-	elif card_draw_requested and deck_cards >= 0 and not card_drawn:
+		if drawing_card_time > 0:
+			var progress = pow(drawing_card_progress(), 2)
+			var current_pos = (moving_card_end_position - moving_card_start_position) * progress + moving_card_start_position
+			current_card.translation = current_pos
+		else:
+			current_card.translation = moving_card_end_position
+	elif card_draw_requested and not card_drawn:
 		# Drawing card time is 0 or less, animation over, update card_drawn
 		card_drawn = true
 		card_draw_requested = false
@@ -50,6 +81,7 @@ func throw_card():
 			var target = raycast()
 			current_card.throw_at(target)
 		current_card.get_node("CardBody/Mesh").cast_shadow = 1
+		sfx_throw.play()
 		
 		var previous_transform = current_card.global_transform
 		card_hand.remove_child(current_card)
@@ -59,13 +91,18 @@ func throw_card():
 	request_card()
 
 func request_card():
-	if not card_draw_requested and deck_cards > 0:
+	if not card_draw_requested and len(hand) > 0:
 		drawing_card_time = CARD_DRAW_TIME
 		card_draw_requested = true
 		# Draw card
-		deck_cards -= 1
-		current_card = new_card()
-		update_mesh()
+		sfx_draw.play()
+		current_card = hand.pop_front()
+		moving_card_start_position = current_card.translation
+		var pos = card_hand.translation
+		var rot = card_hand.translation
+		rot.x -= 90
+		current_card.rotation_degrees = rot
+		moving_card_end_position = pos
 
 
 func new_card():
@@ -100,21 +137,16 @@ func raycast():
 	var from = camera.project_ray_origin(get_viewport().size / 2)
 	return from + camera.project_ray_normal(get_viewport().size / 2) * 50
 
-func update_mesh():
-	if deck_cards > 0:
-		var scale = deck_mesh.scale
-		scale.y = float(deck_cards) / DECK_MAX
-		deck_mesh.scale = scale
-	else:
-		deck_mesh.visible = false
-
 func deck_is_empty():
-	return deck_cards == 0 and not card_drawn and not card_draw_requested
+	return len(hand) == 0 and not card_drawn and not card_draw_requested
 
 func drop_card():
 	if current_card != null and card_drawn:
-		current_card.queue_free()
-		remove_child(current_card)
+		current_card.dropped = true
+		var transform = current_card.global_transform
+		card_hand.remove_child(current_card)
+		$"/root/Arena".add_child(current_card)
+		current_card.global_transform = transform
 		current_card = null
 		card_drawn = false
 

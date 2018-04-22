@@ -84,7 +84,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Emission", "Metallic", "Roughness" ]
 
-[node name="Fireball" type="Spatial" index="0"]
+[node name="Fireball" type="Spatial"]
 
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.0851803, 0 )
 script = SubResource( 1 )

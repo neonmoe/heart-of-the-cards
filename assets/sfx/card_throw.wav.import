@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/card_throw.wav-d151c9ecdfd94f171f5e9af8162d819c.sample"
+
+[deps]
+
+source_file="res://assets/sfx/card_throw.wav"
+source_md5="ef0719f34e6db9c269b84c839cbf61fb"
+
+dest_files=[ "res://.import/card_throw.wav-d151c9ecdfd94f171f5e9af8162d819c.sample" ]
+dest_md5="77c39b11bd8152ce54b74151c8bbc0ff"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

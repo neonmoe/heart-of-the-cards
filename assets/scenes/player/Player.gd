@@ -6,6 +6,8 @@ const SPRINT_SPEED_MULTIPLIER = 1.4
 
 var head
 var deck
+var sfx_footsteps
+var sfx_jump
 
 var gravity
 var current_velocity
@@ -15,6 +17,8 @@ var exit_countdown = 3
 func _ready():
 	head = $Head
 	deck = $Head/Deck
+	sfx_footsteps = $SfxFootsteps
+	sfx_jump = $SfxJump
 	gravity = Vector3(0, -18.2, 0)
 	current_velocity = Vector3()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -35,6 +39,12 @@ func _process(delta):
 	move = move.normalized() * MOVEMENT_SPEED
 	if Input.is_action_pressed("sprint"):
 		move *= SPRINT_SPEED_MULTIPLIER
+	if move.length() > 0:
+		# Moving, play footsteps
+		if not sfx_footsteps.playing:
+			sfx_footsteps.play()
+	else:
+		sfx_footsteps.stop()
 	
 	current_velocity.x = move.x
 	current_velocity.z = move.z
@@ -42,6 +52,7 @@ func _process(delta):
 		current_velocity.y = 0
 		if Input.is_action_pressed("jump"):
 			current_velocity.y += JUMP_SPEED
+			sfx_jump.play()
 	else:
 		current_velocity += gravity
 	
@@ -74,3 +85,13 @@ func _input(event):
 func player_take_damage():
 	deck.drop_card()
 	deck.request_card()
+
+func add_to_deck(card):
+	deck.add_card(card)
+
+
+func _on_CardPickupArea_body_entered(body):
+	if body.has_method("type_card"):
+		var card = body.get_parent()
+		if not card.picked_up:
+			add_to_deck(body.get_parent())

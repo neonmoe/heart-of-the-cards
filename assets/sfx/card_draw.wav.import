@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/card_draw.wav-b0ee6b1ad3c401e6764605a236fcef7e.sample"
+
+[deps]
+
+source_file="res://assets/sfx/card_draw.wav"
+source_md5="670e05c12c1de1579220209f496a5f4f"
+
+dest_files=[ "res://.import/card_draw.wav-b0ee6b1ad3c401e6764605a236fcef7e.sample" ]
+dest_md5="00bfccdf1ef6a77249b20d7d8b48a842"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
