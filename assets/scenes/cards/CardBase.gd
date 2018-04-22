@@ -15,7 +15,9 @@ func _ready():
 
 func _physics_process(delta):
 	if target != null:
-		var flying_dir = target.global_transform.origin - body.global_transform.origin
+		var target_pos = target.global_transform.origin
+		target_pos.y += 0.5
+		var flying_dir = target_pos - body.global_transform.origin
 		body.look_at(flying_dir, Vector3(0, 1, 0))
 		move(delta, flying_dir)
 	elif target_dir != null:

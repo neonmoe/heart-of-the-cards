@@ -15,6 +15,9 @@ var drawing_card_time = 0
 var card_draw_requested = false
 var cards
 
+# Targeting systems
+var targeted_enemies = []
+
 func _ready():
 	camera = $Camera
 	deck_mesh = $"Left Hand/Deck"
@@ -36,8 +39,13 @@ func _process(delta):
 
 func throw_card():
 	if card_drawn:
-		var target = raycast()
-		current_card.throw_at(target)
+		var target_enemy = find_closest_enemy()
+		if target_enemy != null:
+			print("Throwing at:", target_enemy.get_name())
+			current_card.throw(target_enemy)
+		else:
+			var target = raycast()
+			current_card.throw_at(target)
 		var previous_transform = current_card.global_transform
 		card_hand.remove_child(current_card)
 		$"/root/Arena/".add_child(current_card)
@@ -68,6 +76,22 @@ func new_card():
 	new_card.translation = pos
 	return new_card
 
+func find_closest_enemy():
+	if targeted_enemies.size() == 0:
+		return null
+	else:
+		var closest = targeted_enemies[0]
+		var closest_dist = INF
+		for i in range(targeted_enemies.size()):
+			if targeted_enemies[0].is_queued_for_deletion():
+				continue
+			var enemy = targeted_enemies[0]
+			var dist = (enemy.global_transform.origin - global_transform.origin).length()
+			if dist < closest_dist:
+				closest = enemy
+				closest_dist = dist
+		return closest
+
 func raycast():
 	var from = camera.project_ray_origin(get_viewport().size / 2)
 	return from + camera.project_ray_normal(get_viewport().size / 2) * 50
@@ -89,3 +113,13 @@ func drop_card():
 		remove_child(current_card)
 		current_card = null
 		card_drawn = false
+
+# Signals 
+
+func _on_TargetingArea_body_entered(body):
+	if body.get_parent().has_method("homing_target"):
+		targeted_enemies.append(body)
+
+func _on_TargetingArea_body_exited(body):
+	if body.get_parent().has_method("homing_target"):
+		targeted_enemies.erase(body)
