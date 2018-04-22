@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/CardFire.vox-9eb212239ca9d2f08d7c01fc1ad9b84f.mesh"
+
+[deps]
+
+source_file="res://assets/model/CardFire.vox"
+source_md5="6fc46dcef614693c0f6bb1963fb07d47"
+
+dest_files=[ "res://.import/CardFire.vox-9eb212239ca9d2f08d7c01fc1ad9b84f.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+

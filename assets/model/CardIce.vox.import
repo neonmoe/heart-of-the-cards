@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/CardIce.vox-a948f7059c976f0c9371678503dd1e38.mesh"
+
+[deps]
+
+source_file="res://assets/model/CardIce.vox"
+source_md5="05ac83b8cc1e9724e6a2dc3601ac705d"
+
+dest_files=[ "res://.import/CardIce.vox-a948f7059c976f0c9371678503dd1e38.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+

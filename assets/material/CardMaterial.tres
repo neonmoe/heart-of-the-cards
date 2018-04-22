@@ -1,28 +1,4 @@
-[gd_scene load_steps=6 format=2]
-
-[ext_resource path="res://assets/model/CardFire.mesh" type="ArrayMesh" id=1]
-[ext_resource path="res://assets/scenes/cards/CardBody.tscn" type="PackedScene" id=2]
-
-[sub_resource type="GDScript" id=1]
-
-script/source = "# FIRE CARD #
-extends \"res://assets/scenes/cards/CardBase.gd\"
-
-const DAMAGE = 2
-const BONUS_DAMAGE = 1
-const FIRE_STACKS = 2
-
-func hit(enemy):
-	if enemy.has_method(\"set_on_fire\"):
-		if enemy.on_fire():
-			enemy.take_damage(BONUS_DAMAGE)
-		else:
-			enemy.set_on_fire(FIRE_STACKS)
-	if enemy.has_method(\"take_damage\"):
-		enemy.take_damage(DAMAGE)
-		return true
-	return false
-"
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
 [sub_resource type="Shader" id=4]
 
@@ -70,7 +46,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=5]
+[resource]
 
 render_priority = 0
 shader = SubResource( 4 )
@@ -88,30 +64,4 @@ shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
 _sections_unfolded = [ "shader_param" ]
-
-[node name="CardFire" type="Spatial"]
-
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.0851803, 0 )
-script = SubResource( 1 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="Mesh" type="MeshInstance" parent="." index="0"]
-
-transform = Transform( -0.01, -8.74228e-10, 0, 4.26727e-13, -4.88118e-06, 0.01, -8.74228e-10, 0.01, 4.88118e-06, 0, 0, -0.3 )
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = ExtResource( 1 )
-skeleton = NodePath("..")
-material/0 = SubResource( 5 )
-_sections_unfolded = [ "Transform", "material" ]
-
-[node name="CardBody" parent="." index="1" instance=ExtResource( 2 )]
-
 

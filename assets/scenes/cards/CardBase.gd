@@ -1,8 +1,11 @@
 extends Spatial
 
+const FADE_OUT_TIME = 0.1
+
 var speed = 15
 var target_ref
 var target_dir
+var disappear_time = -1
 
 var body
 
@@ -20,10 +23,23 @@ func _physics_process(delta):
 			var target_pos = target.global_transform.origin
 			target_pos.y += 0.5
 			target_dir = target_pos - body.global_transform.origin
+		elif target_dir == null:
+			# Target has died and we have no direction, disappear
+			disappear()
 	
 	if target_dir != null:
 		body.look_at(target_dir, Vector3(0, 1, 0))
 		move(delta, target_dir)
+	
+	if disappear_time > 0:
+		body.scale = Vector3(1, 1, 1) * pow(disappear_time / FADE_OUT_TIME, 0.5)
+		disappear_time -= delta
+		if disappear_time <= 0:
+			queue_free()
+
+func disappear():
+	if disappear_time == -1:
+		disappear_time = FADE_OUT_TIME
 
 func throw(throw_target):
 	target_ref = throw_target
@@ -34,7 +50,7 @@ func throw_at(target_pos):
 func move(delta, dir):
 	var collision = body.move_and_collide(dir.normalized() * delta * speed)
 	if collision != null and (hit(collision.collider) or hit(collision.collider.get_parent())):
-		queue_free()	
+		disappear()
 
 func hit(collider):
 	pass

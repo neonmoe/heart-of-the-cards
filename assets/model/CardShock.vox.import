@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/CardShock.vox-bae23aeaec2a7c066ea21cf8074b705e.mesh"
+
+[deps]
+
+source_file="res://assets/model/CardShock.vox"
+source_md5="24caa4f5d6e99e6c82ca91fbb90298fe"
+
+dest_files=[ "res://.import/CardShock.vox-bae23aeaec2a7c066ea21cf8074b705e.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+
