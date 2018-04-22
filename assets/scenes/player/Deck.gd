@@ -22,7 +22,7 @@ func _ready():
 	cards = [ 
 		load("res://assets/scenes/cards/CardFire.tscn"),
 		load("res://assets/scenes/cards/CardIce.tscn"),
-		load("res://assets/scenes/cards/CardShock.tscn")
+		load("res://assets/scenes/cards/CardShock.tscn"),
 	]
 
 func _process(delta):
@@ -37,7 +37,7 @@ func _process(delta):
 func throw_card():
 	if card_drawn:
 		var target = raycast()
-		current_card.throw(target)
+		current_card.throw_at(target)
 		var previous_transform = current_card.global_transform
 		card_hand.remove_child(current_card)
 		$"/root/Arena/".add_child(current_card)

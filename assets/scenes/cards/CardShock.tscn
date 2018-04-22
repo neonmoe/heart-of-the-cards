@@ -4,14 +4,20 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://assets/scenes/cards/CardBase.gd\"
+script/source = "# SHOCK CARD #
+extends \"res://assets/scenes/cards/CardBase.gd\"
 
 const DAMAGE = 2
+const BONUS_DAMAGE = 1
 const STUN_TIME = 0.5
 
 func hit(enemy):
 	if enemy.has_method(\"stun\"):
-		enemy.stun(STUN_TIME)
+		if enemy.stunned():
+			enemy.take_damage(BONUS_DAMAGE)
+			print(\"Bonus DMG!\")
+		else:
+			enemy.stun(STUN_TIME)
 	if enemy.has_method(\"take_damage\"):
 		enemy.take_damage(DAMAGE)
 		return true

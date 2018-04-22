@@ -4,14 +4,19 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://assets/scenes/cards/CardBase.gd\"
+script/source = "# FREEZE CARD #
+extends \"res://assets/scenes/cards/CardBase.gd\"
 
 const DAMAGE = 2
+const BONUS_DAMAGE = 2
 const FREEZE_TIME = 1.5
 
 func hit(enemy):
 	if enemy.has_method(\"freeze\"):
-		enemy.freeze(FREEZE_TIME)
+		if enemy.frozen():
+			enemy.take_damage(BONUS_DAMAGE)
+		else:
+			enemy.freeze(FREEZE_TIME)
 	if enemy.has_method(\"take_damage\"):
 		enemy.take_damage(DAMAGE)
 		return true
@@ -81,7 +86,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Emission" ]
 
-[node name="CardIce" type="Spatial"]
+[node name="CardIce" type="Spatial" index="0"]
 
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.0851803, 0 )
 script = SubResource( 1 )

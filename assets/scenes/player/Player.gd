@@ -73,3 +73,4 @@ func _input(event):
 
 func player_take_damage():
 	deck.drop_card()
+	deck.request_card()

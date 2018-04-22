@@ -89,18 +89,27 @@ func _physics_process(delta):
 func process_ai(delta):
 	move_direction = Vector3(cos(OS.get_ticks_msec() / 200.0), 0, sin(OS.get_ticks_msec() / 200.0))
 
+func take_damage(dmg):
+	health -= dmg
+
 func set_on_fire(stacks):
 	on_fire = stacks
 	frozen_time = 0
 
-func take_damage(dmg):
-	health -= dmg
+func on_fire():
+	return on_fire > 0
 
 func freeze(secs):
 	frozen_time = secs
 
+func frozen():
+	return frozen_time > 0
+
 func stun(secs):
 	stun_time = secs
+
+func stunned():
+	return stun_time > 0
 
 # For identifying targets for homing cards. Thanks, duck typing >.>
 func homing_target():
