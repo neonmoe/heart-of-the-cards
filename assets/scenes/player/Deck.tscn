@@ -1,31 +1,24 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/scenes/player/Deck.gd" type="Script" id=1]
 [ext_resource path="res://assets/material/hand.tres" type="Material" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 
-size = Vector3( 0.2, 0.2, 0.2 )
-subdivide_width = 0
-subdivide_height = 0
-subdivide_depth = 0
-
-[sub_resource type="CubeMesh" id=2]
-
 size = Vector3( 0.2, 0.1, 0.3 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=2]
 
 extents = Vector3( 0.75, 0.75, 0.75 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 1.5, 1, 1.5 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=4]
 
 extents = Vector3( 3, 1, 3 )
 
@@ -49,48 +42,24 @@ near = 0.05
 far = 100.0
 _sections_unfolded = [ "Transform" ]
 
-[node name="Right Hand" type="MeshInstance" parent="." index="1"]
+[node name="Right Hand" type="Spatial" parent="." index="1"]
 
-transform = Transform( 0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0.9, -0.744992, -1.02392 )
-layers = 1
-material_override = null
-cast_shadow = 0
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = SubResource( 1 )
-skeleton = NodePath("..")
-material/0 = ExtResource( 2 )
-_sections_unfolded = [ "Geometry", "Transform", "material" ]
+transform = Transform( 0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866026, 0.9, -0.744992, -1.02392 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="CardHolder" type="Spatial" parent="Right Hand" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.131307, -2.98023e-08 )
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.131307, 0 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Left Hand" type="MeshInstance" parent="." index="2"]
+[node name="Left Hand" type="Spatial" parent="." index="2"]
 
 transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -0.9, -0.744992, -1.02392 )
-layers = 1
-material_override = null
-cast_shadow = 0
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = SubResource( 1 )
-skeleton = NodePath("..")
-material/0 = ExtResource( 2 )
-_sections_unfolded = [ "Geometry", "Transform", "material" ]
+_sections_unfolded = [ "Transform" ]
 
 [node name="Deck" type="Spatial" parent="Left Hand" index="0"]
 
-transform = Transform( 1, 0, -2.98023e-08, 0, 0.866026, -0.5, 0, 0.5, 0.866025, -0.00265652, 0.167945, -0.149566 )
+transform = Transform( 1, 1.49012e-08, 0, 0, 0.866026, -0.5, -2.98023e-08, 0.5, 0.866024, -0.00265652, 0.167945, -0.149566 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Mesh" type="MeshInstance" parent="Left Hand/Deck" index="0"]
@@ -105,7 +74,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 2 )
 _sections_unfolded = [ "Geometry", "Transform", "material" ]
@@ -136,19 +105,19 @@ reverb_bus_uniformity = 0.0
 [node name="CollisionShape" type="CollisionShape" parent="TargetingArea" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 disabled = false
 
 [node name="CollisionShape2" type="CollisionShape" parent="TargetingArea" index="1"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010596, -0.00778627, -6.10542 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 disabled = false
 
 [node name="CollisionShape3" type="CollisionShape" parent="TargetingArea" index="2"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.4798 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 disabled = false
 
 [connection signal="body_entered" from="TargetingArea" to="." method="_on_TargetingArea_body_entered"]

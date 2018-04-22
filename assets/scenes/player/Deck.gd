@@ -34,14 +34,17 @@ func _process(delta):
 	if drawing_card_time > 0:
 		drawing_card_time -= delta
 	elif card_draw_requested and deck_cards > 0 and not card_drawn:
-		draw_card()
+		# Drawing card time is 0 or less, animation over, update card_drawn
+		card_drawn = true
 		card_draw_requested = false
+
+func drawing_card_progress():
+	return (CARD_DRAW_TIME - drawing_card_time) / CARD_DRAW_TIME
 
 func throw_card():
 	if card_drawn:
 		var target_enemy = find_closest_enemy()
 		if target_enemy != null:
-			print("Throwing at:", target_enemy.get_name())
 			current_card.throw(weakref(target_enemy))
 		else:
 			var target = raycast()
@@ -57,13 +60,11 @@ func request_card():
 	if not card_draw_requested:
 		drawing_card_time = CARD_DRAW_TIME
 		card_draw_requested = true
-
-func draw_card():
-	if deck_cards > 0:
-		card_drawn = true
+		# Draw card
 		deck_cards -= 1
 		current_card = new_card()
 		update_mesh()
+
 
 func new_card():
 	var new_card = cards[randi() % len(cards)].instance()
