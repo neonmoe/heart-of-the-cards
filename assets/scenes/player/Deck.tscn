@@ -12,17 +12,17 @@ subdivide_depth = 0
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.75, 0.75, 0.75 )
+extents = Vector3( 0.907593, 0.75, 0.75 )
 
 [sub_resource type="BoxShape" id=3]
 
-extents = Vector3( 1.5, 1, 1.5 )
+extents = Vector3( 1.88651, 1, 1.5 )
 
 [sub_resource type="BoxShape" id=4]
 
-extents = Vector3( 3, 1, 3 )
+extents = Vector3( 3.43984, 1, 3 )
 
-[node name="Deck" type="Spatial" index="0"]
+[node name="Deck" type="Spatial"]
 
 script = ExtResource( 1 )
 

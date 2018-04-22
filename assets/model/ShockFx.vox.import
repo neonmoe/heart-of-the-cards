@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/ShockFx.vox-012303eb3032195da90cf3506aad5ce9.mesh"
+
+[deps]
+
+source_file="res://assets/model/ShockFx.vox"
+source_md5="f64fff6a3db347f784664d7a9fd95de5"
+
+dest_files=[ "res://.import/ShockFx.vox-012303eb3032195da90cf3506aad5ce9.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+

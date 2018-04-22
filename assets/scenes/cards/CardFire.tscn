@@ -24,7 +24,7 @@ func hit(enemy):
 	return false
 "
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=2]
 
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
@@ -70,10 +70,10 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=3]
 
 render_priority = 0
-shader = SubResource( 4 )
+shader = SubResource( 2 )
 shader_param/albedo = Color( 1, 1, 1, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
@@ -109,7 +109,7 @@ lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 mesh = ExtResource( 1 )
 skeleton = NodePath("..")
-material/0 = SubResource( 5 )
+material/0 = SubResource( 3 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="CardBody" parent="." index="1" instance=ExtResource( 2 )]

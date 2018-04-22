@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/FireFx.vox-e99c2997e1f616d2c358aa928c5b26a0.mesh"
+
+[deps]
+
+source_file="res://assets/model/FireFx.vox"
+source_md5="77258b410f12c66cc440b27e0b3294da"
+
+dest_files=[ "res://.import/FireFx.vox-e99c2997e1f616d2c358aa928c5b26a0.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+

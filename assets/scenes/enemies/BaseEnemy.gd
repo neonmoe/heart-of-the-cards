@@ -1,13 +1,11 @@
 extends Spatial
 
 const FIRE_DAMAGE_INTERVAL = 0.5
-const DYING_TIME = 0.15
 const FROZEN_SPEED_MULTIPLIER = 0.3
 
 var max_health = 4
 var health = max_health
 var health_indicator
-var dead_time = -1
 
 var on_fire = 0
 var fire_cooldown = 0
@@ -24,17 +22,21 @@ var move_speed = 100
 
 var body
 var player
+var mesh
+var offset_pos = Vector3()
+var offset_rot = Vector3()
 
 # Something like an alternative super constructor for all enemies
 func init(health_, move_speed_):
 	max_health = health_
 	health = health_
+	body.set_explosion_size(health)
 	move_speed = move_speed_
 
 func _ready():
 	body = $Body
 	player = $"/root/Arena/Player"
-	var mesh = $Mesh
+	mesh = $Mesh
 	remove_child(mesh)
 	body.add_child(mesh)
 	health_indicator = $Body/HealthIndicator
@@ -57,25 +59,26 @@ func _process(delta):
 		stun_time -= delta
 	
 	# Indicators
-	if dead_time == -1:
-		health_indicator.scale = Vector3(1, float(health)  / max_health, 1)
-		frozen_indicator.visible = frozen_time > 0
-		on_fire_indicator.visible = on_fire > 0
-		stun_indicator.visible = stun_time > 0
-	else:
-		health_indicator.visible = false
-		frozen_indicator.visible = false
-		stun_indicator.visible = false
-		on_fire_indicator.visible = false
+	health_indicator.scale = Vector3(1, float(health)  / max_health, 1)
+	frozen_indicator.visible = frozen_time > 0
+	on_fire_indicator.visible = on_fire > 0
+	stun_indicator.visible = stun_time > 0
 	
-	if health <= 0 and dead_time == -1:
-		dead_time = OS.get_ticks_msec() + 1000 * DYING_TIME
-	elif dead_time != -1:
-		if dead_time <= OS.get_ticks_msec():
-			queue_free()
-		else:
-			var remaining_time = (dead_time - OS.get_ticks_msec()) / DYING_TIME / 1000
-			body.scale = Vector3(1, 1, 1) * pow(remaining_time, 0.5)
+	if health <= 0:
+		body.explode()
+		queue_free()
+	
+	# Animation
+	var osc = sin(OS.get_ticks_msec() / 100.0 * move_speed / 200)
+	if not stunned():
+		offset_pos.y = min(1, abs(osc) * 1.5) * 0.3
+		offset_rot.z = sign(osc) * min(1, abs(osc * 1.5)) * 20
+	else:
+		offset_pos.y = 0
+		offset_rot.z = 0
+	offset_rot.y = 180
+	mesh.translation = offset_pos
+	mesh.rotation_degrees = offset_rot
 
 func _physics_process(delta):
 	process_ai(delta)
@@ -85,6 +88,7 @@ func _physics_process(delta):
 	if stun_time > 0:
 		actual_move_speed *= 0
 	body.move_and_slide(move_direction.normalized() * actual_move_speed, Vector3(0, 1, 0))
+	body.look_at(player.global_transform.origin, Vector3(0, 1, 0))
 
 func process_ai(delta):
 	move_direction = Vector3(cos(OS.get_ticks_msec() / 200.0), 0, sin(OS.get_ticks_msec() / 200.0))
@@ -101,6 +105,9 @@ func on_fire():
 
 func freeze(secs):
 	frozen_time = secs
+
+func unfreeze():
+	frozen_time = 0
 
 func frozen():
 	return frozen_time > 0

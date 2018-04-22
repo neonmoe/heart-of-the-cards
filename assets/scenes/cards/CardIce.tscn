@@ -9,13 +9,15 @@ script/source = "# FREEZE CARD #
 extends \"res://assets/scenes/cards/CardBase.gd\"
 
 const DAMAGE = 2
-const BONUS_DAMAGE = 2
+const BONUS_DAMAGE = 3
 const FREEZE_TIME = 1.5
 
 func hit(enemy):
 	if enemy.has_method(\"freeze\"):
 		if enemy.frozen():
+			ice_explosion = true
 			enemy.take_damage(BONUS_DAMAGE)
+			enemy.unfreeze()
 		else:
 			enemy.freeze(FREEZE_TIME)
 	if enemy.has_method(\"take_damage\"):

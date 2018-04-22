@@ -1,6 +1,6 @@
 extends Spatial
 
-const FADE_OUT_TIME = 0.1
+const FADE_OUT_TIME = 0.4
 
 var speed = 15
 var target_ref
@@ -8,6 +8,7 @@ var target_dir
 var disappear_time = -1
 
 var body
+var ice_explosion = false
 
 func _ready():
 	body = $CardBody
@@ -40,16 +41,19 @@ func _physics_process(delta):
 func disappear():
 	if disappear_time == -1:
 		disappear_time = FADE_OUT_TIME
+		$CardBody.explode(ice_explosion)
 
 func throw(throw_target):
+	$CardBody.start_trail()
 	target_ref = throw_target
 
 func throw_at(target_pos):
+	$CardBody.start_trail()
 	target_dir = target_pos - body.global_transform.origin
 
 func move(delta, dir):
 	var collision = body.move_and_collide(dir.normalized() * delta * speed)
-	if collision != null and (hit(collision.collider) or hit(collision.collider.get_parent())):
+	if collision != null and disappear_time == -1 and (hit(collision.collider) or hit(collision.collider.get_parent())):
 		disappear()
 
 func hit(collider):

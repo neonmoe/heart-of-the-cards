@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/GreaterImp.vox-623b4a2c04ff3e05ecf32e8f050dfb7b.mesh"
+
+[deps]
+
+source_file="res://assets/model/GreaterImp.vox"
+source_md5="b78b255ad882f75e9262044637311196"
+
+dest_files=[ "res://.import/GreaterImp.vox-623b4a2c04ff3e05ecf32e8f050dfb7b.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+

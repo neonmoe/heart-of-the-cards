@@ -102,7 +102,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="DemonEnemy" type="Spatial" index="0"]
+[node name="DemonEnemy" type="Spatial"]
 
 script = SubResource( 1 )
 

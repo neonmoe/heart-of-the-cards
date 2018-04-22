@@ -33,7 +33,7 @@ func _process(delta):
 		throw_card()
 	if drawing_card_time > 0:
 		drawing_card_time -= delta
-	elif card_draw_requested and deck_cards > 0 and not card_drawn:
+	elif card_draw_requested and deck_cards >= 0 and not card_drawn:
 		# Drawing card time is 0 or less, animation over, update card_drawn
 		card_drawn = true
 		card_draw_requested = false
@@ -42,13 +42,15 @@ func drawing_card_progress():
 	return (CARD_DRAW_TIME - drawing_card_time) / CARD_DRAW_TIME
 
 func throw_card():
-	if card_drawn:
+	if card_drawn and current_card:
 		var target_enemy = find_closest_enemy()
-		if target_enemy != null:
+		if target_enemy != null and current_card != null:
 			current_card.throw(weakref(target_enemy))
 		else:
 			var target = raycast()
 			current_card.throw_at(target)
+		current_card.get_node("CardBody/Mesh").cast_shadow = 1
+		
 		var previous_transform = current_card.global_transform
 		card_hand.remove_child(current_card)
 		$"/root/Arena/".add_child(current_card)
@@ -57,7 +59,7 @@ func throw_card():
 	request_card()
 
 func request_card():
-	if not card_draw_requested:
+	if not card_draw_requested and deck_cards > 0:
 		drawing_card_time = CARD_DRAW_TIME
 		card_draw_requested = true
 		# Draw card
@@ -75,6 +77,7 @@ func new_card():
 	pos.y += 0.2
 	new_card.rotation_degrees = rot
 	new_card.translation = pos
+	new_card.get_node("CardBody/Mesh").cast_shadow = 0
 	return new_card
 
 func find_closest_enemy():
@@ -106,10 +109,10 @@ func update_mesh():
 		deck_mesh.visible = false
 
 func deck_is_empty():
-	return deck_cards == 0 and not card_drawn
+	return deck_cards == 0 and not card_drawn and not card_draw_requested
 
 func drop_card():
-	if current_card != null:
+	if current_card != null and card_drawn:
 		current_card.queue_free()
 		remove_child(current_card)
 		current_card = null

@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/IceFx.vox-41f562926aafd27914cbe6a357a924ef.mesh"
+
+[deps]
+
+source_file="res://assets/model/IceFx.vox"
+source_md5="a3ff1ffc8ef08e7b9c69f7fed06f260b"
+
+dest_files=[ "res://.import/IceFx.vox-41f562926aafd27914cbe6a357a924ef.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+
