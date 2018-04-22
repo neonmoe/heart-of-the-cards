@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/ArenaFloor.vox-3c82af8cadebfb909db037f1d6c96a4e.mesh"
+
+[deps]
+
+source_file="res://assets/model/ArenaFloor.vox"
+source_md5="c2fb1ceb3342c82a021130ae8b9c2419"
+
+dest_files=[ "res://.import/ArenaFloor.vox-3c82af8cadebfb909db037f1d6c96a4e.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+

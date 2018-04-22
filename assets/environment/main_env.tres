@@ -3,22 +3,23 @@
 [sub_resource type="ProceduralSky" id=1]
 
 radiance_size = 4
-sky_top_color = Color( 0.0470588, 0.454902, 0.976471, 1 )
-sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
+sky_top_color = Color( 0, 0.0479957, 0.109375, 1 )
+sky_horizon_color = Color( 0.0546875, 0.0367799, 0.0237122, 1 )
 sky_curve = 0.25
 sky_energy = 1.0
-ground_bottom_color = Color( 0.101961, 0.145098, 0.188235, 1 )
-ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
+ground_bottom_color = Color( 0, 0, 0, 1 )
+ground_horizon_color = Color( 0.0509804, 0.0352941, 0.0235294, 1 )
 ground_curve = 0.01
 ground_energy = 1.0
 sun_color = Color( 1, 1, 1, 1 )
-sun_latitude = 35.0
+sun_latitude = 25.0
 sun_longitude = 0.0
 sun_angle_min = 1.0
-sun_angle_max = 100.0
+sun_angle_max = 5.0
 sun_curve = 0.05
-sun_energy = 16.0
+sun_energy = 10.0
 texture_size = 2
+_sections_unfolded = [ "Ground", "Sky", "Sun", "Texture" ]
 
 [resource]
 
@@ -28,9 +29,9 @@ background_sky_custom_fov = 0.0
 background_color = Color( 0, 0, 0, 1 )
 background_energy = 1.0
 background_canvas_max_layer = 0
-ambient_light_color = Color( 0.496094, 0.496094, 0.496094, 1 )
+ambient_light_color = Color( 0.296875, 0.240042, 0.119446, 1 )
 ambient_light_energy = 1.0
-ambient_light_sky_contribution = 0.0
+ambient_light_sky_contribution = 0.5
 fog_enabled = false
 fog_color = Color( 0.5, 0.6, 0.7, 1 )
 fog_sun_color = Color( 1, 0.9, 0.7, 1 )
@@ -87,13 +88,13 @@ glow_levels/4 = false
 glow_levels/5 = true
 glow_levels/6 = false
 glow_levels/7 = false
-glow_intensity = 1.2
-glow_strength = 1.0
-glow_bloom = 0.0
-glow_blend_mode = 2
+glow_intensity = 0.8
+glow_strength = 0.95
+glow_bloom = 0.05
+glow_blend_mode = 1
 glow_hdr_threshold = 1.0
-glow_hdr_scale = 2.0
-glow_bicubic_upscale = false
+glow_hdr_scale = 1.5
+glow_bicubic_upscale = true
 adjustment_enabled = false
 adjustment_brightness = 1.0
 adjustment_contrast = 1.0

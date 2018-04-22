@@ -6,7 +6,9 @@
 [ext_resource path="res://assets/scenes/enemies/DemonEnemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/scenes/enemies/ImpEnemy.tscn" type="PackedScene" id=5]
 
-[node name="Arena" type="Spatial" index="0"]
+[node name="Arena" type="Spatial"]
+
+_sections_unfolded = [ "Transform" ]
 
 [node name="Room" parent="." index="0" instance=ExtResource( 1 )]
 
