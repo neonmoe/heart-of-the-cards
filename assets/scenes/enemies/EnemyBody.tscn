@@ -8,12 +8,12 @@ func _on_Area_body_entered(body):
 	get_parent()._on_Area_body_entered(body)
 "
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="CapsuleShape" id=10]
 
 radius = 0.5
 height = 0.4
 
-[sub_resource type="SphereMesh" id=2]
+[sub_resource type="SphereMesh" id=11]
 
 radius = 0.2
 height = 0.4
@@ -21,7 +21,7 @@ radial_segments = 64
 rings = 32
 is_hemisphere = false
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=12]
 
 render_priority = 0
 flags_transparent = false
@@ -77,7 +77,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Emission" ]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=13]
 
 render_priority = 0
 flags_transparent = false
@@ -133,7 +133,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Emission" ]
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=14]
 
 render_priority = 0
 flags_transparent = false
@@ -189,7 +189,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo", "Emission" ]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=15]
 
 render_priority = 0
 flags_transparent = false
@@ -241,15 +241,15 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[sub_resource type="CubeMesh" id=7]
+[sub_resource type="CubeMesh" id=16]
 
-material = SubResource( 6 )
+material = SubResource( 15 )
 size = Vector3( 0.3, 0.3, 0.3 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="CapsuleShape" id=8]
+[sub_resource type="CapsuleShape" id=17]
 
 radius = 0.6
 height = 1.0
@@ -272,7 +272,7 @@ script = SubResource( 9 )
 [node name="CollisionShape" type="CollisionShape" parent="." index="0"]
 
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.7, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 10 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
@@ -288,9 +288,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 2 )
+mesh = SubResource( 11 )
 skeleton = NodePath("..")
-material/0 = SubResource( 3 )
+material/0 = SubResource( 12 )
 _sections_unfolded = [ "material" ]
 
 [node name="FrozenIndicator" type="MeshInstance" parent="." index="2"]
@@ -305,9 +305,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 2 )
+mesh = SubResource( 11 )
 skeleton = NodePath("..")
-material/0 = SubResource( 4 )
+material/0 = SubResource( 13 )
 _sections_unfolded = [ "material" ]
 
 [node name="StunIndicator" type="MeshInstance" parent="." index="3"]
@@ -322,9 +322,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 2 )
+mesh = SubResource( 11 )
 skeleton = NodePath("..")
-material/0 = SubResource( 5 )
+material/0 = SubResource( 14 )
 _sections_unfolded = [ "material" ]
 
 [node name="HealthIndicator" type="Spatial" parent="." index="4"]
@@ -343,7 +343,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 7 )
+mesh = SubResource( 16 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "material" ]
@@ -374,7 +374,7 @@ reverb_bus_uniformity = 0.0
 [node name="CollisionShape" type="CollisionShape" parent="Area" index="0"]
 
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.533478, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 17 )
 disabled = false
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

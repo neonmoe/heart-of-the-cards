@@ -20,12 +20,20 @@ var stun_time = 0
 var stun_indicator
 
 var move_direction = Vector3()
-var move_speed = 200
+var move_speed = 100
 
 var body
+var player
+
+# Something like an alternative super constructor for all enemies
+func init(health_, move_speed_):
+	max_health = health_
+	health = health_
+	move_speed = move_speed_
 
 func _ready():
 	body = $Body
+	player = $"/root/Arena/Player"
 	var mesh = $Mesh
 	remove_child(mesh)
 	body.add_child(mesh)
@@ -68,10 +76,9 @@ func _process(delta):
 		else:
 			var remaining_time = (dead_time - OS.get_ticks_msec()) / DYING_TIME / 1000
 			body.scale = Vector3(1, 1, 1) * pow(remaining_time, 0.5)
-	
-	process_ai()
 
 func _physics_process(delta):
+	process_ai()
 	var actual_move_speed = move_speed * delta
 	if frozen_time > 0:
 		actual_move_speed *= FROZEN_SPEED_MULTIPLIER
@@ -80,7 +87,7 @@ func _physics_process(delta):
 	body.move_and_slide(move_direction.normalized() * actual_move_speed, Vector3(0, 1, 0))
 
 func process_ai():
-	move_direction = Vector3(cos(OS.get_ticks_msec() / 500.0), 0, sin(OS.get_ticks_msec() / 500.0))
+	move_direction = Vector3(cos(OS.get_ticks_msec() / 200.0), 0, sin(OS.get_ticks_msec() / 200.0))
 
 func set_on_fire(stacks):
 	on_fire = stacks
@@ -100,7 +107,9 @@ func homing_target():
 	pass
 
 func _on_Area_body_entered(body):
-	print("Bonk?")
 	if body.has_method("player_take_damage"):
 		body.player_take_damage()
-		print("Bonk!")
+
+# AI helpers
+func towards_player():
+	return player.global_transform.origin - body.global_transform.origin

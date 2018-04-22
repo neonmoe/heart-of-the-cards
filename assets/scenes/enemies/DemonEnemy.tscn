@@ -4,10 +4,28 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends \"res://assets/scenes/enemies/BaseEnemy.gd\"
+script/source = "# DEMON ENEMY #
+extends \"res://assets/scenes/enemies/BaseEnemy.gd\"
+
+const GOLDILOCKS_MIN = 3
+const GOLDILOCKS_MAX = 4
+
+func _ready():
+	init(5, 80)
 
 func process_ai():
-	move_direction = Vector3(cos(OS.get_ticks_msec() / 100.0), 0, sin(OS.get_ticks_msec() / 100.0))
+	var player_dir = towards_player()
+	var dist = player_dir.length()
+	player_dir = player_dir.normalized()
+	var circling_dir = player_dir.cross(Vector3(0, 1, 0))
+	var target_dist = (GOLDILOCKS_MIN + GOLDILOCKS_MAX) / 2.0
+	var target_dir = sign(dist - target_dist) * player_dir
+	var dist_dist = min(abs(target_dist - dist) * 0.5, 1)
+	move_direction = circling_dir * (1.0 - dist_dist) + target_dir * dist_dist
+	# TODO: Implement the following AI
+	# - Tries to stay in the midway point between the player and the wall
+	# - Starts circling clockwise once the midpoint has been sufficiently reached
+	# - Shoots fire balls
 "
 
 [sub_resource type="CubeMesh" id=2]
@@ -69,7 +87,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="DemonEnemy" type="Spatial" index="0"]
+[node name="DemonEnemy" type="Spatial"]
 
 script = SubResource( 1 )
 
