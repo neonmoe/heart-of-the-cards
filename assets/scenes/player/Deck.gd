@@ -42,7 +42,7 @@ func throw_card():
 		var target_enemy = find_closest_enemy()
 		if target_enemy != null:
 			print("Throwing at:", target_enemy.get_name())
-			current_card.throw(target_enemy)
+			current_card.throw(weakref(target_enemy))
 		else:
 			var target = raycast()
 			current_card.throw_at(target)

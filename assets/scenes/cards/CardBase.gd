@@ -1,7 +1,7 @@
 extends Spatial
 
 var speed = 15
-var target
+var target_ref
 var target_dir
 
 var body
@@ -14,21 +14,22 @@ func _ready():
 	body.add_child(mesh)
 
 func _physics_process(delta):
-	if target != null:
-		var target_pos = target.global_transform.origin
-		target_pos.y += 0.5
-		var flying_dir = target_pos - body.global_transform.origin
-		body.look_at(flying_dir, Vector3(0, 1, 0))
-		move(delta, flying_dir)
-	elif target_dir != null:
+	if target_ref:
+		var target = target_ref.get_ref()
+		if target:
+			var target_pos = target.global_transform.origin
+			target_pos.y += 0.5
+			target_dir = target_pos - body.global_transform.origin
+	
+	if target_dir != null:
+		body.look_at(target_dir, Vector3(0, 1, 0))
 		move(delta, target_dir)
 
 func throw(throw_target):
-	target = throw_target
+	target_ref = throw_target
 
 func throw_at(target_pos):
 	target_dir = target_pos - body.global_transform.origin
-	body.look_at(target_dir, Vector3(0, 1, 0))
 
 func move(delta, dir):
 	var collision = body.move_and_collide(dir.normalized() * delta * speed)
