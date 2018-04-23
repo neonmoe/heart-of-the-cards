@@ -78,7 +78,7 @@ func _process(delta):
 		body.remove_child(sfx_death)
 		$"/root/Arena".add_child(sfx_death)
 		sfx_death.global_transform = prev_transform
-		var random_cards = randi() % max_health * 1.1 + 1
+		var random_cards = randi() % max_health + 2
 		for i in range(random_cards):
 			var card = random_card.instance()
 			$"/root/Arena".add_child(card)
