@@ -3,3 +3,6 @@ Heart of the Cards is a trading card game first person shooter. It has elements 
 
 ## External resources used
 - [MagicaVoxel Importer](https://godotengine.org/asset-library/asset/162) by Scayze; MIT license
+
+## Screenshots
+![screenshot](assets/external/screenshot-01.png)
