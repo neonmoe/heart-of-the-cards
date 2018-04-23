@@ -8,7 +8,7 @@
 audio_stream = ExtResource( 2 )
 random_pitch = 1.05
 
-[node name="RandomCard" type="Spatial" index="0"]
+[node name="RandomCard" type="Spatial"]
 
 script = ExtResource( 1 )
 

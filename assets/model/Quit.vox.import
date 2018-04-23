@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/Quit.vox-8420447b200791f4815f1ae341c39d1e.mesh"
+
+[deps]
+
+source_file="res://assets/model/Quit.vox"
+source_md5="7d3697ecabd518544439d72a393749a8"
+
+dest_files=[ "res://.import/Quit.vox-8420447b200791f4815f1ae341c39d1e.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+
