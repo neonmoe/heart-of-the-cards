@@ -70,7 +70,7 @@ func _process(delta):
 		$Control/LoseCountdown.text = str(ceil(exit_countdown))
 		exit_countdown -= delta
 		if exit_countdown <= 0:
-			get_tree().quit()
+			get_tree().reload_current_scene()
 
 func _input(event):
 	if event is InputEventMouseMotion:
