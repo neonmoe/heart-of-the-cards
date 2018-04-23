@@ -10,7 +10,7 @@ data = PoolVector3Array( 7, -0.5, 0.5, 7, -0.5, 1.5, 8, -0.5, 1.5, 8, -0.5, 1.5,
 
 [node name="Wall" type="MeshInstance" index="0"]
 
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -2.33928, 0.166666, -6.66869 )
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
 layers = 1
 material_override = null
 cast_shadow = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/sfx/bop.wav" type="AudioStream" id=1]
 [ext_resource path="res://assets/sfx/ding.wav" type="AudioStream" id=2]
@@ -47,10 +47,6 @@ func type_card():
 [sub_resource type="BoxShape" id=2]
 
 extents = Vector3( 0.1, 0.15, 0.015 )
-
-[sub_resource type="SphereShape" id=3]
-
-radius = 1.0
 
 [sub_resource type="ParticlesMaterial" id=4]
 
@@ -366,7 +362,7 @@ random_pitch = 1.1
 audio_stream = ExtResource( 2 )
 random_pitch = 1.1
 
-[node name="CardBody" type="KinematicBody" index="0"]
+[node name="CardBody" type="KinematicBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -389,37 +385,7 @@ shape = SubResource( 2 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
-[node name="HomingArea" type="Area" parent="." index="1"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15 )
-input_ray_pickable = false
-input_capture_on_drag = false
-space_override = 0
-gravity_point = false
-gravity_distance_scale = 0.0
-gravity_vec = Vector3( 0, -1, 0 )
-gravity = 9.8
-linear_damp = 0.1
-angular_damp = 1.0
-priority = 0.0
-monitoring = true
-monitorable = true
-collision_layer = 1
-collision_mask = 1
-audio_bus_override = false
-audio_bus_name = "Master"
-reverb_bus_enable = false
-reverb_bus_name = "Master"
-reverb_bus_amount = 0.0
-reverb_bus_uniformity = 0.0
-_sections_unfolded = [ "Transform" ]
-
-[node name="CollisionShape" type="CollisionShape" parent="HomingArea" index="0"]
-
-shape = SubResource( 3 )
-disabled = false
-
-[node name="Fx" type="Spatial" parent="." index="2"]
+[node name="Fx" type="Spatial" parent="." index="1"]
 
 [node name="Explosion" type="Particles" parent="Fx" index="0"]
 

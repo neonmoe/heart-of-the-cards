@@ -7,7 +7,7 @@ path="res://.import/ArenaWall.vox-0e42247c36e83a00b8e44433c780830a.mesh"
 [deps]
 
 source_file="res://assets/model/ArenaWall.vox"
-source_md5="7218a8fe5f07d77ca991cd344e7bea8c"
+source_md5="bbfbb0e6c4e2c37f652a15d8d9b23b3f"
 
 dest_files=[ "res://.import/ArenaWall.vox-0e42247c36e83a00b8e44433c780830a.mesh" ]
 dest_md5="d41d8cd98f00b204e9800998ecf8427e"

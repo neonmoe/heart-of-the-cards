@@ -8,7 +8,7 @@
 script/source = "# FIRE CARD #
 extends \"res://assets/scenes/cards/CardBase.gd\"
 
-const DAMAGE = 2
+const DAMAGE = 1
 const BONUS_DAMAGE = 1
 const FIRE_STACKS = 2
 

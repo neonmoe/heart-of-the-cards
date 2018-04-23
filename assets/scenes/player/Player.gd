@@ -89,6 +89,9 @@ func player_take_damage():
 func add_to_deck(card):
 	deck.add_card(card)
 
+func type_player():
+	pass
+
 
 func _on_CardPickupArea_body_entered(body):
 	if body.has_method("type_card"):

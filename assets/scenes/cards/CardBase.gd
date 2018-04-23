@@ -17,7 +17,6 @@ var picked_up = false
 
 func _ready():
 	body = $CardBody
-	$CardBody/HomingArea.scale = Vector3(2, 2, 2)
 	var mesh = $Mesh
 	remove_child(mesh)
 	body.add_child(mesh)

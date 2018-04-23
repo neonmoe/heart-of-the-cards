@@ -6,6 +6,7 @@ const CARD_DRAW_TIME = 0.2
 var camera
 var deck_mesh
 var sfx_draw
+var sfx_retrieve
 var sfx_throw
 
 # Cards
@@ -14,7 +15,11 @@ var current_card
 var card_drawn = false
 var drawing_card_time = 0
 var card_draw_requested = false
-var cards
+var cards = [ 
+	load("res://assets/scenes/cards/CardFire.tscn"),
+	load("res://assets/scenes/cards/CardIce.tscn"),
+	load("res://assets/scenes/cards/CardShock.tscn"),
+]
 var hand = []
 var moving_card_start_position
 var moving_card_end_position
@@ -27,12 +32,8 @@ func _ready():
 	deck_mesh = $"Left Hand/Deck"
 	card_hand = $"Right Hand/CardHolder"
 	sfx_draw = $SfxDraw
+	sfx_retrieve = $SfxRetrieve
 	sfx_throw = $SfxThrow
-	cards = [ 
-		load("res://assets/scenes/cards/CardFire.tscn"),
-		load("res://assets/scenes/cards/CardIce.tscn"),
-		load("res://assets/scenes/cards/CardShock.tscn"),
-	]
 	for i in range(DECK_MAX):
 		var new_card = cards[randi() % len(cards)].instance()
 		add_card(new_card)
@@ -52,6 +53,8 @@ func add_card(card):
 	card.rotation_degrees = rot
 	card.translation = pos
 	hand.push_front(card)
+	if not sfx_retrieve.playing:
+		sfx_retrieve.play()
 
 func _process(delta):
 	if Input.is_action_just_pressed("throw_card"):
@@ -149,6 +152,7 @@ func drop_card():
 		current_card.global_transform = transform
 		current_card = null
 		card_drawn = false
+		request_card()
 
 # Signals 
 

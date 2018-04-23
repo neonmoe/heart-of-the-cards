@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shing.wav-4617a571c8304a8df3c9e288144d932a.sample"
+
+[deps]
+
+source_file="res://assets/sfx/shing.wav"
+source_md5="231abcbd29744c2af0757d6c0b274eaa"
+
+dest_files=[ "res://.import/shing.wav-4617a571c8304a8df3c9e288144d932a.sample" ]
+dest_md5="6df1e578b6d32ce2ec4564ce00dd71cb"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

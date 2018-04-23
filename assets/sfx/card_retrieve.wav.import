@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/card_retrieve.wav-8d930160b8d78df221d868552e4ea5aa.sample"
+
+[deps]
+
+source_file="res://assets/sfx/card_retrieve.wav"
+source_md5="d967c4d985e7e5b5f39bdc8039c3e630"
+
+dest_files=[ "res://.import/card_retrieve.wav-8d930160b8d78df221d868552e4ea5aa.sample" ]
+dest_md5="79d1a6fadfd0196e3d3bd830b55cb13d"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

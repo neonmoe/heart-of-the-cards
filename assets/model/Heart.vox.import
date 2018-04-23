@@ -1,0 +1,16 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/Heart.vox-a4198145861bd6e7fc1c7328e4af8077.mesh"
+
+[deps]
+
+source_file="res://assets/model/Heart.vox"
+source_md5="0e14a97ff03a6765662492a08c23cc5f"
+
+dest_files=[ "res://.import/Heart.vox-a4198145861bd6e7fc1c7328e4af8077.mesh" ]
+dest_md5="d41d8cd98f00b204e9800998ecf8427e"
+
+[params]
+

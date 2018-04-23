@@ -5,7 +5,6 @@ const FROZEN_SPEED_MULTIPLIER = 0.3
 
 var max_health = 4
 var health = max_health
-var health_indicator
 
 var on_fire = 0
 var fire_cooldown = 0
@@ -31,6 +30,8 @@ var offset_pos = Vector3()
 var offset_rot = Vector3()
 var offset_time = randi() % 100
 
+var random_card = load("res://assets/scenes/arena/RandomCard.tscn")
+
 # Something like an alternative super constructor for all enemies
 func init(health_, move_speed_):
 	max_health = health_
@@ -44,7 +45,6 @@ func _ready():
 	mesh = $Mesh
 	remove_child(mesh)
 	body.add_child(mesh)
-	health_indicator = $Body/HealthIndicator
 	on_fire_indicator = $Body/OnFireIndicator
 	frozen_indicator = $Body/FrozenIndicator
 	stun_indicator = $Body/StunIndicator
@@ -67,7 +67,6 @@ func _process(delta):
 		stun_time -= delta
 	
 	# Indicators
-	health_indicator.scale = Vector3(1, float(health)  / max_health, 1)
 	frozen_indicator.visible = frozen_time > 0
 	on_fire_indicator.visible = on_fire > 0
 	stun_indicator.visible = stun_time > 0
@@ -79,6 +78,11 @@ func _process(delta):
 		body.remove_child(sfx_death)
 		$"/root/Arena".add_child(sfx_death)
 		sfx_death.global_transform = prev_transform
+		var random_cards = randi() % max_health * 1.1 + 1
+		for i in range(random_cards):
+			var card = random_card.instance()
+			$"/root/Arena".add_child(card)
+			card.global_transform.origin = body.global_transform.origin
 		queue_free()
 	
 	# Animation

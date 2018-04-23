@@ -13,7 +13,7 @@ config_version=3
 config/name="Heart of the Cards"
 run/main_scene="res://assets/scenes/arena/Arena.tscn"
 config/use_custom_user_dir=true
-run/low_processor_mode_sleep_usec=12000
+run/low_processor_mode_sleep_usec=14000
 config/icon="res://assets/external/icon.png"
 
 [display]
