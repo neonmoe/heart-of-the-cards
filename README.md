@@ -4,5 +4,8 @@ Heart of the Cards is a trading card game first person shooter. It has elements 
 ## External resources used
 - [MagicaVoxel Importer](https://godotengine.org/asset-library/asset/162) by Scayze; MIT license
 
+## Distribution
+You can get the binaries on [itch.io](https://nc.itch.io/heart-of-the-cards) or [my website](https://trash.neon.moe). The game is distributed under the terms of the [GNU GPLv3 license](LICENSE.md).
+
 ## Screenshots
 ![screenshot](assets/external/screenshot-01.png)
